@@ -2,8 +2,10 @@ import NavBar from "@/app/components/NavBar";
 
 export default function Home() {
   return (
-    <main>
-        <div className={"container"}><NavBar/></div>
-    </main>
+      <main>
+          <NavBar/>
+          <br/>
+          <h1 className={"title has-text-centered"}>Home</h1>
+      </main>
   );
 }
