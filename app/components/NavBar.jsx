@@ -1,5 +1,6 @@
 "use client"
 import React, {useState} from 'react';
+import Link from "next/link";
 
 const NavBar = () => {
     const [isActive, setIsActive] = useState(false)
@@ -21,15 +22,15 @@ const NavBar = () => {
                 <div id="main-nav" className={`navbar-menu ${isActive ? "is-active" : null}`}>
 
                     <div className="navbar-end">
-                        <a className={"navbar-item"} href={"/"}>
+                        <Link className={"navbar-item"} href={"/"}>
                             <strong>Home</strong>
-                        </a>
-                        <a className={"navbar-item"} href={"/library"}>
+                        </Link>
+                        <Link className={"navbar-item"} href={"/library"}>
                             <strong>Library</strong>
-                        </a>
-                        <a className={"navbar-item"} href={"/my-exhibit"}>
+                        </Link>
+                        <Link className={"navbar-item"} href={"/my-exhibit"}>
                             <strong>My Exhibit</strong>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
