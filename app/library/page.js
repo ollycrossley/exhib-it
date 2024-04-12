@@ -36,7 +36,7 @@ export default function Library() {
 
             <div className={"container"}>
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi} setSearchTerm={setSearchTerm} getItems={getItems}/>
-                <div className={"columns is-gapless is-gap-1 is-multiline pt-6 is-mobile"}>
+                <div className={"lib-grid"}>
                     {items.map(item => <LibraryElement element={item}/>)}
                 </div>
             </div>

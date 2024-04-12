@@ -14,7 +14,7 @@ export default function MyExhibit() {
             <h1 className={"title has-text-centered"}>My Exhibit</h1>
 
             <div className={"container"}>
-                <div className={"columns is-gapless is-gap-1 is-multiline pt-6 is-mobile"}>
+                <div className={"lib-grid pt-6 is-mobile"}>
                     {appContext.exhibitObjects.map(item => <LibraryElement element={item}/>)}
                 </div>
             </div>
