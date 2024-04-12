@@ -15,7 +15,8 @@ export const getObjectsBySearchVA = async (q) => {
                 id: obj["systemNumber"],
                 primaryTitle: obj["_primaryTitle"],
                 primaryMaker: obj["_primaryMaker"]["name"],
-                image: `${obj["_images"]["_iiif_image_base_url"]}full/full/0/default.jpg`
+                image: `${obj["_images"]["_iiif_image_base_url"]}full/full/0/default.jpg`,
+                intId: `va${obj.systemNumber}`
             }
         })
 
@@ -42,9 +43,9 @@ export const getObjectBySearchHARV = async (q) => {
                 apiType: "harv",
                 id: obj["id"],
                 primaryTitle: obj["title"],
-                // primaryMaker: obj["people"],
                 multipleMakers: obj["people"],
-                image: `${obj["images"][0]["iiifbaseuri"]}/full/full/0/default.jpg`
+                image: `${obj["images"][0]["iiifbaseuri"]}/full/full/0/default.jpg`,
+                intId: `harv${obj.id}`
             }
         })
         harvResponse.records = harvResponse.records.map(r => {
@@ -103,6 +104,7 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 20) => {
                 primaryTitle: obj["title"],
                 primaryMaker: obj["artistAlphasort"],
                 image: obj["primaryImage"],
+                intId: `met${obj.objectID}`
             }
         })
         console.log(objectsFormatted)

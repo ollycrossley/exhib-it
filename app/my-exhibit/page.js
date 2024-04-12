@@ -15,7 +15,7 @@ export default function MyExhibit() {
 
             <div className={"container"}>
                 <div className={"columns is-gapless is-gap-1 is-multiline pt-6 is-mobile"}>
-                    {appContext.userData.map(item => <LibraryElement element={item}/>)}
+                    {appContext.exhibitObjects.map(item => <LibraryElement element={item}/>)}
                 </div>
             </div>
         </>

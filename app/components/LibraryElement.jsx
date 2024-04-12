@@ -1,13 +1,22 @@
 import { useAppContext } from '../context/state';
+import {useEffect, useState} from "react";
 
 export default function LibraryElement({element}) {
 
     const appContext = useAppContext();
 
+    const [isAdded, setIsAdded] = useState(false)
+
+    useEffect(() => {
+
+    }, [isAdded]);
+
     const handleExhibitAdd = () => {
-        appContext.userData.push(element)
+        appContext.exhibitObjects.push(element)
+        appContext.exhibitObjectIds.push(element.intId)
+        setIsAdded(true)
         alert("Item added!")
-        console.log(appContext.userData)
+        console.log(appContext.exhibitObjects)
     }
 
     return (
@@ -20,7 +29,9 @@ export default function LibraryElement({element}) {
                         <p className={"is-white is-size-5 has-text-centered is-bold"}>{element.primaryTitle || "Unknown"}</p>
                         <p className={"is-white is-size-6 has-text-centered"}>{element.primaryMaker || "Unknown"}</p>
                         <br/>
-                        <button className={"button"} onClick={handleExhibitAdd}>Add</button>
+                        {appContext.exhibitObjectIds.includes(element.intId) ? <button className={"button"} onClick={handleExhibitAdd} disabled={true}>Already
+                            Added</button>
+                            : <button className={"button"} onClick={handleExhibitAdd}>Add</button>}
                     </div>
                 </div>
             </div>
