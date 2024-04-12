@@ -1,8 +1,8 @@
 @import '../node_modules/bulma/sass';
 
 .lib-el{
-  height: 20rem;
-  object-fit: contain;
+  height: 15rem;
+  object-fit: cover;
 }
 
 .img-container {
@@ -25,4 +25,8 @@
 
 .img-container:hover .overlay {
   opacity: 1;
+}
+
+.button.is-wide {
+  min-width: 63px;
 }
