@@ -7,12 +7,19 @@
 
 .img-container {
   position: relative;
+
+}
+
+.lib-el-desc{
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .lib-grid {
   display: flex;
   flex-wrap: wrap;
 }
+
 .lib-grid::after {
   content: '';
   flex-grow: 999999999;
