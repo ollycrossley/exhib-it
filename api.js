@@ -11,6 +11,7 @@ export const getObjectsBySearchVA = async (q) => {
         const vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
         return vaImageObjs.map(obj => {
             return {
+                apiType: "va",
                 id: obj["systemNumber"],
                 primaryTitle: obj["_primaryTitle"],
                 primaryMaker: obj["_primaryMaker"]["name"],
@@ -38,6 +39,7 @@ export const getObjectBySearchHARV = async (q) => {
         harvResponse.records = harvResponse.records.filter(item => item["primaryimageurl"] !== null && item["images"].length !== 0)
         harvResponse.records = harvResponse.records.map(obj => {
             return {
+                apiType: "harv",
                 id: obj["id"],
                 primaryTitle: obj["title"],
                 // primaryMaker: obj["people"],
@@ -100,7 +102,7 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 20) => {
                 id: obj["objectID"],
                 primaryTitle: obj["title"],
                 primaryMaker: obj["artistAlphasort"],
-                image: obj["primaryImage"]
+                image: obj["primaryImage"],
             }
         })
         console.log(objectsFormatted)
