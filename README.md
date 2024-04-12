@@ -10,7 +10,8 @@ Exhib-It is a Next.js based web project that aims to combine popular museum/art 
 
 Please run `npm install` to install all available packages. 
 
-This project uses several node packages for its styling sources and other functionality, and are essential to the package.
+This project uses several node packages for its styling sources and other functionality,
+and are essential to the package.
 
 
 ### Setting up `.env` files 
