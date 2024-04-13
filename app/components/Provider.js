@@ -1,9 +1,13 @@
 "use client";
-
-import { ContextProvider } from "../context/state";
+import {ExhibitObjectsProvider} from "@/app/context/exhibitObjects";
+import {ExhibitIdsProvider} from "@/app/context/exhibitObjectIds";
 
 export function Providers({ children }) {
     return (
-            <ContextProvider>{children}</ContextProvider>
+        <ExhibitIdsProvider>
+            <ExhibitObjectsProvider>
+                {children}
+            </ExhibitObjectsProvider>
+        </ExhibitIdsProvider>
     );
 }

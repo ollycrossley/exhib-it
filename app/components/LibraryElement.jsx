@@ -1,5 +1,6 @@
-import { useAppContext } from '../context/state';
 import {useEffect, useState} from "react";
+import {useExhibitObjectContexts} from "@/app/context/exhibitObjects";
+import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
 
 export default function LibraryElement({element}) {
 
@@ -9,8 +10,8 @@ export default function LibraryElement({element}) {
             : inputString;
     }
 
-    const appContext = useAppContext();
-
+    const {exhibitObjects, setExhibitObjects} = useExhibitObjectContexts()
+    const {exhibitIds, setExhibitIds} = useExhibitIdsContext()
     const [isAdded, setIsAdded] = useState(false)
 
     useEffect(() => {
@@ -19,8 +20,10 @@ export default function LibraryElement({element}) {
 
     const handleExhibitAdd = () => {
         setIsAdded(true)
-        appContext.exhibitObjects.push(element)
-        appContext.exhibitObjectIds.push(element.intId)
+        // appContext.exhibitObjects.push(element)
+        setExhibitObjects(prev => [...prev, element])
+        // appContext.exhibitObjectIds.push(element.intId)
+        setExhibitIds(prev => [...prev, element.intId])
     }
 
     return (
@@ -33,7 +36,7 @@ export default function LibraryElement({element}) {
                         <p className={"is-white is-size-5 has-text-centered is-bold"}>{ truncateWithEllipsis(element.primaryTitle, 50) || "Unknown"}</p>
                         <p className={"is-white is-size-6 has-text-centered"}>{element.primaryMaker || "Unknown"}</p>
                         <br/>
-                        {appContext.exhibitObjectIds.includes(element.intId)? <button className={"button is-success is-wide"} disabled={true} ><span className="icon is-small" ><i className="fas fa-check"></i></span></button>
+                        {exhibitIds.includes(element.intId)? <button className={"button is-success is-wide"} disabled={true} ><span className="icon is-small" ><i className="fas fa-check"></i></span></button>
                             : <button className={"button"} onClick={handleExhibitAdd}>Add
                     </button>}
                     </div>
