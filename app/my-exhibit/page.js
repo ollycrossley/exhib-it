@@ -15,7 +15,7 @@ export default function MyExhibit() {
             <h1 className={"title has-text-centered"}>My Exhibit</h1>
             <div className={"container"}>
                     <div className={"lib-grid pt-6 is-mobile"}>
-                        {exhibitObjects.map(item => <LibraryElement element={item}/>)}
+                        {exhibitObjects.map(item => <LibraryElement element={item} isMyExhibit={true}/>)}
                     </div>
             </div>
         </>
