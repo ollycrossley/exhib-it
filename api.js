@@ -8,8 +8,8 @@ export const getObjectsBySearchVA = async (q) => {
     try {
         const response = await axios.get(`${baseUrl}/search?q=${q}`)
         const vaObjects = response.data.records
-        const vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
-        return vaImageObjs.map(obj => {
+        let vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
+        vaImageObjs = vaImageObjs.map(obj => {
             return {
                 apiType: "va",
                 id: obj["systemNumber"],
@@ -19,6 +19,7 @@ export const getObjectsBySearchVA = async (q) => {
                 intId: `va${obj.systemNumber}`
             }
         })
+        return uniqify(vaImageObjs, "image")
 
     } catch (error) {
         console.log(error);
@@ -84,7 +85,7 @@ export const getObjectByIdMET = async (id) => {
     }
 }
 
-export const getObjectsBySearchMET = async (q, page = 1, size = 20) => {
+export const getObjectsBySearchMET = async (q, page = 1, size = 100) => {
     try {
         const response = await axios.get(`${baseUrlMet}/search?isOnView=true&hasImages=true&q=${q}`)
         const start = (page*size)-size
@@ -108,9 +109,15 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 20) => {
             }
         })
         console.log(objectsFormatted)
-        return objectsFormatted
+        return uniqify(objectsFormatted, "image")
 
     } catch (error) {
         console.log(error);
     }
 }
+
+
+
+// GENERIC FUNCTIONS
+
+const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
