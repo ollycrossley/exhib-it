@@ -94,6 +94,8 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 100) => {
 
         const pagedObjectIds = sortedResponse.slice(start, start+(size-1))
 
+        // console.log(pagedObjectIds)
+
         const promisedObjects = pagedObjectIds.map(obj => axios.get(`${baseUrlMet}/objects/${obj}`))
         const receivedObjects = await Promise.all(([...promisedObjects]))
         let objectsFormatted = (receivedObjects).map(obj => obj.data)
@@ -108,7 +110,6 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 100) => {
                 intId: `met${obj.objectID}`
             }
         })
-        console.log(objectsFormatted)
         return uniqify(objectsFormatted, "image")
 
     } catch (error) {

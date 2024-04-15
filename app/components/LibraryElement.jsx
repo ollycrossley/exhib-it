@@ -3,7 +3,7 @@ import {useExhibitObjectContexts} from "@/app/context/exhibitObjects";
 import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
 import {prefixes} from "next/dist/build/output/log";
 
-export default function LibraryElement({element, isMyExhibit = false}) {
+export default function LibraryElement({element, isMyExhibit = false, key = element.intId}) {
 
     function truncateWithEllipsis(inputString, maxLength) {
         return inputString.length > maxLength

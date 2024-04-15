@@ -17,7 +17,7 @@ export default function RootLayout({children}) {
                 <script src="https://kit.fontawesome.com/a1a2d1f110.js" crossOrigin="anonymous" async/>
             </head>
             <Providers>
-                <body className={inter.className}>{children}</body>
+                <body className={`${inter.className} has-navbar-fixed-top-touch`}>{children}</body>
             </Providers>
 
         </html>

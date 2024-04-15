@@ -9,9 +9,11 @@ import SvgComponent from "@/app/components/MuseumLoadingSymbol";
 export default function Library() {
 
     const [searchTerm, setSearchTerm] = useState("")
+    const [metPage, setMetPage] = useState(2)
     const [items, setItems] = useState([])
     const [currentApi, setCurrentApi] = useState("va")
     const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingMore, setIsLoadingMore] = useState(false)
 
     const getItems = async () => {
         setIsLoading(true)
@@ -27,6 +29,18 @@ export default function Library() {
             }
         }
         setIsLoading(false)
+    }
+
+    const handlePageChange = async () => {
+        setIsLoadingMore(true)
+        if (currentApi === "met") {
+            setMetPage((prev) => prev + 1)
+            // console.log(metPage)
+            const moreObjects = await getObjectsBySearchMET(searchTerm, metPage)
+            setItems(prev => [...prev, ...moreObjects])
+        }
+        setIsLoadingMore(false)
+
     }
 
     const displayItems = () => {
@@ -96,7 +110,8 @@ export default function Library() {
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                   setSearchTerm={setSearchTerm} getItems={getItems}/>
                 {displayItems()}
-
+                {items !== undefined && items.length > 0 && currentApi === "met" ? <div className={"block has-text-centered"}><button id={"met-load-more-button"} className={`button is-info mt-5 mb-5 ${isLoadingMore ? "is-loading" : null}`} onClick={handlePageChange}>Load More....</button>
+                </div> : undefined}
             </div>
         </main>
     )

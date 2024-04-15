@@ -5,7 +5,7 @@ import Link from "next/link";
 const NavBar = () => {
     const [isActive, setIsActive] = useState(false)
     return (
-        <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-fixed-top-touch has-shadow" role="navigation" aria-label="main navigation">
             <div className={"container"}>
                 <div className="navbar-brand">
                     <p className={"navbar-item"}><strong>Exhib-It!</strong></p>
