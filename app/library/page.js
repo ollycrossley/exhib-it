@@ -7,18 +7,44 @@ import SearchOptionsBar from "@/app/components/SearchOptionsBar";
 
 export default function Library() {
 
-    const [searchTerm, setSearchTerm] = useState("vase")
+    const [searchTerm, setSearchTerm] = useState("")
     const [items, setItems] = useState([])
     const [currentApi, setCurrentApi] = useState("va")
 
 
     const getItems = async () => {
-        if (currentApi === "va") {
-            setItems(await getObjectsBySearchVA(searchTerm))
-        } else if (currentApi === "harv"){
-            setItems(await getObjectBySearchHARV(searchTerm))
-        } else if (currentApi === "met"){
-            setItems(await getObjectsBySearchMET(searchTerm))
+        if (searchTerm === "") {
+            setItems([])
+        } else {
+            if (currentApi === "va") {
+                setItems(await getObjectsBySearchVA(searchTerm))
+            } else if (currentApi === "harv") {
+                setItems(await getObjectBySearchHARV(searchTerm))
+            } else if (currentApi === "met") {
+                setItems(await getObjectsBySearchMET(searchTerm))
+            }
+        }
+    }
+
+    const displayItems = () => {
+        if (searchTerm === "") {
+            return (
+                <div className={"hero has-text-centered"}>
+                    <p className={"hero-body subtitle is-4"}>Search for an item!</p>
+                </div>
+            )
+        } else if (items === undefined || items.length === 0) {
+            return (
+                <div className={"hero has-text-centered"}>
+                    <p className={"hero-body subtitle is-4"}>No items available</p>
+                </div>
+            )
+        } else {
+            return (
+                <div className={"lib-grid"}>
+                    {items.map(item => <LibraryElement element={item}/>)}
+                </div>
+            )
         }
     }
 
@@ -35,10 +61,10 @@ export default function Library() {
 
 
             <div className={"container"}>
-                <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi} setSearchTerm={setSearchTerm} getItems={getItems}/>
-                <div className={"lib-grid"}>
-                    {items.map(item => <LibraryElement element={item}/>)}
-                </div>
+                <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
+                                  setSearchTerm={setSearchTerm} getItems={getItems}/>
+                {displayItems()}
+
             </div>
         </main>
     )
