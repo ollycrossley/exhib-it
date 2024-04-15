@@ -133,7 +133,7 @@ export default function SearchOptionsBar({searchTerm, setSearchTerm, currentApi,
                 </div>
             </div>
 
-            <div className={"columns is-hidden-desktop is-hidden-tablet is-centered"}>
+            <div className={"columns is-hidden-desktop is-hidden-tablet is-centered mb-4"}>
 
                 <div className={"column"}>
                     <div className="field has-addons is-justify-content-center" id={"search-bar"}>
