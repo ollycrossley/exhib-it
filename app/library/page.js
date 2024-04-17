@@ -5,15 +5,25 @@ import {useEffect, useState} from "react";
 import {getObjectBySearchHARV, getObjectsBySearchMET, getObjectsBySearchVA} from "@/api";
 import SearchOptionsBar from "@/app/components/SearchOptionsBar";
 import SvgComponent from "@/app/components/MuseumLoadingSymbol";
+import {LibraryModal} from "@/app/components/LibraryModal";
 
 export default function Library() {
 
     const [searchTerm, setSearchTerm] = useState("")
+    const [currentApi, setCurrentApi] = useState("va")
+
     const [metPage, setMetPage] = useState(2)
     const [items, setItems] = useState([])
-    const [currentApi, setCurrentApi] = useState("va")
+
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
+
+    const [modalData, setModalData] = useState({})
+    const [modalState, setModalState] = useState(false)
+
+    const toggleModal = () => {
+        setModalState(!modalState)
+    }
 
     const getItems = async () => {
         setIsLoading(true)
@@ -35,7 +45,6 @@ export default function Library() {
         setIsLoadingMore(true)
         if (currentApi === "met") {
             setMetPage((prev) => prev + 1)
-            // console.log(metPage)
             const moreObjects = await getObjectsBySearchMET(searchTerm, metPage)
             setItems(prev => [...prev, ...moreObjects])
         }
@@ -47,7 +56,7 @@ export default function Library() {
         if (items !== undefined && items.length > 0) {
             return (
                 <div className={"lib-grid"}>
-                    {items.map(item => <LibraryElement element={item}/>)}
+                    {items.map(item => <LibraryElement element={item} setModalData={setModalData} toggleModal={toggleModal}/>)}
                 </div>
             )
         }
@@ -66,14 +75,14 @@ export default function Library() {
         } else {
             return (
                 <div className={"lib-grid"}>
-                    {items.map(item => <LibraryElement element={item}/>)}
+                    {items.map(item => <LibraryElement element={item} setModalData={setModalData} toggleModal={toggleModal}/>)}
                 </div>
             )
         }
     }
 
     useEffect(() => {
-        getItems()
+        getItems() // despite this being async, i am unable to await due to Next.JS restrictions
     }, [currentApi]);
 
     if (isLoading) {
@@ -83,6 +92,9 @@ export default function Library() {
                 <br/>
                 <h1 className={"title has-text-centered"}>Library</h1>
                 <br/><br/><br/>
+
+                <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData}/>
+
                 <div className={"container"}>
                     <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                       setSearchTerm={setSearchTerm} getItems={getItems}/>
@@ -97,7 +109,6 @@ export default function Library() {
             </main>
         )
     }
-
     return (
         <main>
             <NavBar/>
@@ -105,7 +116,7 @@ export default function Library() {
             <h1 className={"title has-text-centered"}>Library</h1>
             <br/><br/><br/>
 
-
+            
             <div className={"container"}>
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                   setSearchTerm={setSearchTerm} getItems={getItems}/>

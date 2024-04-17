@@ -1,9 +1,10 @@
+"use client"
 import {useEffect, useState} from "react";
 import {useExhibitObjectContexts} from "@/app/context/exhibitObjects";
 import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
-import {prefixes} from "next/dist/build/output/log";
 
-export default function LibraryElement({element, isMyExhibit = false, key = element.intId}) {
+
+export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal}) {
 
     function truncateWithEllipsis(inputString, maxLength) {
         return inputString.length > maxLength
@@ -18,6 +19,11 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
     useEffect(() => {
 
     }, [isAdded]);
+
+    const handleModal = () => {
+        setModalData(element)
+        toggleModal()
+    }
 
     const handleExhibitAdd = () => {
         setIsAdded(true)
@@ -36,8 +42,12 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
         if (isMyExhibit) {
             return (
                 <div className={"column is-narrow"}>
-                    <button className={"button is-danger is-wide"} onClick={handleExhibitRemove}><span className="icon is-small"><i
+                    <button className={"button is-danger is-wide"} onClick={handleExhibitRemove}><span
+                        className="icon is-small"><i
                         className="fas fa-x"></i></span></button>
+                    <button className={"button is-danger is-wide"} onClick={handleModal}><span
+                        className="icon is-small"><i
+                        className="fas fa-info"></i></span></button>
                 </div>
             )
         } else {
@@ -50,15 +60,15 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
     return (
         <div className={"img-container is-flex is-flex-grow-1 m-1 is-flex-direction-column"}>
             <img className={"image lib-el"} src={element.image} alt={"library element image"}/>
-            <div
-                className={"overlay is-flex is-flex-wrap-wrap is-align-items-center is-justify-content-space-around p-2 is-flex-direction-row lib-el-desc"}>
-                <div className={"is-flex is-flex-direction-column is-align-items-center"}>
-                    <p className={"is-white is-size-5 has-text-centered is-bold"}>{truncateWithEllipsis(element.primaryTitle, 50) || "Unknown"}</p>
-                    <p className={"is-white is-size-6 has-text-centered"}>{element.primaryMaker || "Unknown"}</p>
-                    <br/>
-                    {handleButtonRack()}
+                <div
+                    className={"overlay is-flex is-flex-wrap-wrap is-align-items-center is-justify-content-space-around p-2 is-flex-direction-row lib-el-desc"}>
+                    <div className={"is-flex is-flex-direction-column is-align-items-center"}>
+                        <p className={"is-white is-size-5 has-text-centered is-bold"}>{truncateWithEllipsis(element.primaryTitle, 50) || "Unknown"}</p>
+                        <p className={"is-white is-size-6 has-text-centered"}>{element.primaryMaker || "Unknown"}</p>
+                        <br/>
+                        {handleButtonRack()}
+                    </div>
                 </div>
-            </div>
 
         </div>
     )
