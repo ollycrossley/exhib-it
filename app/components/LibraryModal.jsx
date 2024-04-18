@@ -9,7 +9,7 @@ export const LibraryModal = ({item, toggleModal, modalState}) => {
             <div className="modal-background" onClick={toggleModal}/>
             <div className="modal-card">
                 <header className="modal-card-head">
-                    <p className="modal-card-title">{`#${item.id}`}</p>
+                    <p className="modal-card-title">{`#${item.intId}`}</p>
                     <button className="delete" onClick={toggleModal}/>
                 </header>
                 <section className="modal-card-body">
