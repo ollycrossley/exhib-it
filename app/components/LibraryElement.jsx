@@ -35,7 +35,6 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
                 break;
         }
         setModalData({...element, ...gotItem})
-        console.log(modalData)
         toggleModal()
     }
 
