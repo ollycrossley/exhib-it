@@ -14,7 +14,7 @@ export const LibraryModal = ({item, toggleModal, modalState}) => {
                 </header>
                 <section className="modal-card-body">
                     <div className="content">
-                        <b>Title:</b> {item.primaryTitle}
+                        <b>Title:</b> {item["title"] || "NOT_VA"}
                     </div>
                 </section>
                 <footer className="modal-card-foot">

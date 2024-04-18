@@ -5,7 +5,7 @@ import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
 import {getObjectByIdHARV, getObjectByIdMET, getObjectByIdVA} from "@/api";
 
 
-export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal}) {
+export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal, modalData = {}}) {
 
     function truncateWithEllipsis(inputString, maxLength) {
         return inputString.length > maxLength
@@ -18,32 +18,28 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
     const [isAdded, setIsAdded] = useState(false)
     const [wholeData, setWholeData] = useState()
 
-    const getWholeData = async () => {
-        switch (element.apiType) {
-            case "va":
-                setWholeData(await getObjectByIdVA(element.id))
-                break;
-            case "met":
-                setWholeData(await getObjectByIdMET(element.id))
-                break;
-            case "harv":
-                setWholeData(await getObjectByIdHARV(element.id))
-                break;
-        }
-    }
-
     useEffect(() => {
-        getWholeData()
-
     }, [isAdded]);
 
     const handleModal = async () => {
-        setModalData({...element, ...wholeData})
-        console.log({...element, ...wholeData})
+        let gotItem = undefined
+        switch (element.apiType) {
+            case "va":
+                gotItem = await getObjectByIdVA(element.id)
+                break;
+            case "met":
+                gotItem = await getObjectByIdMET(element.id)
+                break;
+            case "harv":
+                gotItem = await getObjectByIdHARV(element.id)
+                break;
+        }
+        setModalData({...element, ...gotItem})
+        console.log(modalData)
         toggleModal()
     }
 
-    const handleExhibitAdd = () => {
+    const handleExhibitAdd = async () => {
         setIsAdded(true)
         setExhibitObjects(prev => [...prev, element])
         setExhibitIds(prev => [...prev, element.intId])

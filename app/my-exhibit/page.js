@@ -25,7 +25,7 @@ export default function MyExhibit() {
             <h1 className={"title has-text-centered"}>My Exhibit</h1>
             <div className={"container"}>
                     <div className={"lib-grid pt-6 is-mobile"}>
-                        {exhibitObjects.map(item => <LibraryElement element={item} isMyExhibit={true} setModalData={setModalData} toggleModal={toggleModal} key={item.intId}/>)}
+                        {exhibitObjects.map(item => <LibraryElement element={item} isMyExhibit={true} setModalData={setModalData} toggleModal={toggleModal} key={item.intId} modalData={modalData}/>)}
                     </div>
             </div>
         </>

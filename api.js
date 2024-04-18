@@ -15,7 +15,7 @@ export const getObjectByIdVA = async (id) => {
 
 export const getObjectsBySearchVA = async (q) => {
     try {
-        const response = await axios.get(`${baseUrl}/search?q=${q}&page_size=100&images_exist=1`)
+        const response = await axios.get(`${baseUrl}/search?q=${q}&page_size=100&images_exist=1&page_offset=1`)
         const vaObjects = response.data.records
         let vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
         vaImageObjs = vaImageObjs.map(obj => {
@@ -53,7 +53,7 @@ export const getObjectByIdHARV = async (id) => {
 
 export const getObjectBySearchHARV = async (q) => {
     try {
-        const response = await axios.get("https://api.harvardartmuseums.org/object?size=100", {
+        const response = await axios.get("https://api.harvardartmuseums.org/object?size=100&page=1", {
             params: {
                 apikey: process.env.NEXT_PUBLIC_HARVARD_API_KEY,
                 keyword: q,
@@ -73,13 +73,11 @@ export const getObjectBySearchHARV = async (q) => {
                 intId: `harv${obj.id}`
             }
         })
-        harvResponse.records = harvResponse.records.map(r => {
-            return {
-                ...r,
-                primaryMaker: r.multipleMakers[0]["alphasort"]
+        harvResponse.records.forEach(r => {
+            if (r.multipleMakers !== undefined && r.multipleMakers.length > 0) {
+                r.primaryMaker = r.multipleMakers[0]["alphasort"]
             }
         })
-
         return harvResponse.records
 
     } catch (e) {
