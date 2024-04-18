@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import {useExhibitObjectContexts} from "@/app/context/exhibitObjects";
 import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
+import {getObjectByIdHARV, getObjectByIdMET, getObjectByIdVA} from "@/api";
 
 
 export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal}) {
@@ -15,13 +16,30 @@ export default function LibraryElement({element, isMyExhibit = false, key = elem
     const {exhibitObjects, setExhibitObjects} = useExhibitObjectContexts()
     const {exhibitIds, setExhibitIds} = useExhibitIdsContext()
     const [isAdded, setIsAdded] = useState(false)
+    const [wholeData, setWholeData] = useState()
+
+    const getWholeData = async () => {
+        switch (element.apiType) {
+            case "va":
+                setWholeData(await getObjectByIdVA(element.id))
+                break;
+            case "met":
+                setWholeData(await getObjectByIdMET(element.id))
+                break;
+            case "harv":
+                setWholeData(await getObjectByIdHARV(element.id))
+                break;
+        }
+    }
 
     useEffect(() => {
+        getWholeData()
 
     }, [isAdded]);
 
-    const handleModal = () => {
-        setModalData(element)
+    const handleModal = async () => {
+        setModalData({...element, ...wholeData})
+        console.log({...element, ...wholeData})
         toggleModal()
     }
 
