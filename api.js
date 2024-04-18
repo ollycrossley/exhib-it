@@ -4,9 +4,18 @@ import axios from "axios"
 const baseUrl = "https://api.vam.ac.uk/v2/objects"
 
 
+export const getObjectByIdVA = async (id) => {
+    try {
+        const response = await axios.get(`https://api.vam.ac.uk/v2/museumobject/${id}`)
+        return response.data.record;
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 export const getObjectsBySearchVA = async (q) => {
     try {
-        const response = await axios.get(`${baseUrl}/search?q=${q}`)
+        const response = await axios.get(`${baseUrl}/search?q=${q}&page_size=100&images_exist=1`)
         const vaObjects = response.data.records
         let vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
         vaImageObjs = vaImageObjs.map(obj => {
@@ -27,9 +36,24 @@ export const getObjectsBySearchVA = async (q) => {
 }
 
 // HARVARD: https://github.com/harvardartmuseums/api-docs?ref=apilist.fun
+
+export const getObjectByIdHARV = async (id) => {
+    try {
+        const response = await axios.get(`https://api.harvardartmuseums.org/object/${id}`, {
+            params: {
+                apikey: process.env.NEXT_PUBLIC_HARVARD_API_KEY,
+            }
+        })
+
+        return response.data
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 export const getObjectBySearchHARV = async (q) => {
     try {
-        const response = await axios.get("https://api.harvardartmuseums.org/object", {
+        const response = await axios.get("https://api.harvardartmuseums.org/object?size=100", {
             params: {
                 apikey: process.env.NEXT_PUBLIC_HARVARD_API_KEY,
                 keyword: q,
