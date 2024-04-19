@@ -5,7 +5,7 @@ import {useExhibitIdsContext} from "@/app/context/exhibitObjectIds";
 import {getObjectByIdHARV, getObjectByIdMET, getObjectByIdVA} from "@/api";
 
 
-export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal, modalData = {}}) {
+export default function LibraryElement({element, isMyExhibit = false, key = element.intId, setModalData, toggleModal}) {
 
     function truncateWithEllipsis(inputString, maxLength) {
         return inputString.length > maxLength

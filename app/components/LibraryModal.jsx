@@ -17,8 +17,10 @@ export const LibraryModal = ({item, toggleModal, modalState}) => {
                 </header>
                 <section className="modal-card-body">
                     <div className="content">
-                        <div className={"mb-5"}><Carousel photos={[item.image, "https://images.metmuseum.org/CRDImages/ad/original/217260.jpg"]}/></div>
-                        <b>Title:</b> {item["title"] || "NOT_VA"}
+                        <div className={"mb-5"}><Carousel photos={[...item.images]}/></div>
+                        <p className={"is-text title"}><b> {item["title"] || item["primaryTitle"] || "Untitled"}</b></p>
+                        <p className={"is-text"}><b>Date:</b> {item["date"] || "Undated"}</p>
+                        <p className={"is-text"}><b>Description:</b> <i>{item["description"] || "No description given"}</i></p>
                     </div>
                 </section>
                 <footer className="modal-card-foot">

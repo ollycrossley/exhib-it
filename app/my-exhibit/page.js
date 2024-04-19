@@ -10,10 +10,11 @@ export default function MyExhibit() {
 
     const {exhibitObjects, setExhibitObjects} = useExhibitObjectContexts()
 
-    const [modalData, setModalData] = useState({})
+    const [modalData, setModalData] = useState()
     const [modalState, setModalState] = useState(false)
 
     const toggleModal = () => {
+        console.log(modalData)
         setModalState(!modalState)
     }
 
@@ -25,7 +26,7 @@ export default function MyExhibit() {
             <h1 className={"title has-text-centered"}>My Exhibit</h1>
             <div className={"container"}>
                     <div className={"lib-grid pt-6 is-mobile"}>
-                        {exhibitObjects.map(item => <LibraryElement element={item} isMyExhibit={true} setModalData={setModalData} toggleModal={toggleModal} key={item.intId} modalData={modalData}/>)}
+                        {exhibitObjects.map(item => <LibraryElement element={item} isMyExhibit={true} setModalData={setModalData} toggleModal={toggleModal} key={item.intId}/>)}
                     </div>
             </div>
         </>

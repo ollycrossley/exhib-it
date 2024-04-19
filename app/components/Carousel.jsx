@@ -14,7 +14,6 @@ export const Carousel = ({photos}) => {
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper block">
 
                 {photos.map((photo, index) => {
-                    console.log(photo)
                     return (
                         <SwiperSlide>
                             <div className={"image is-4by3"}>
