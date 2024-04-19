@@ -7,7 +7,15 @@ const baseUrl = "https://api.vam.ac.uk/v2/objects"
 export const getObjectByIdVA = async (id) => {
     try {
         const response = await axios.get(`https://api.vam.ac.uk/v2/museumobject/${id}`)
-        return response.data.record;
+        const data = response.data.record
+        data.images = data.images.map(i => {
+            return `https://framemark.vam.ac.uk/collections/${i}/full/full/0/default.jpg`
+        })
+        return {
+            images: data.images,
+            date: data.productionDates[0].date.text || "Unknown",
+            description: data.briefDescription
+        };
     } catch (e) {
         console.error(e)
     }
