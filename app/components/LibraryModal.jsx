@@ -1,5 +1,8 @@
+import {Carousel} from "@/app/components/Carousel";
+
 export const LibraryModal = ({item, toggleModal, modalState}) => {
 
+    // Don't render if not active
     if(!modalState) {
         return null;
     }
@@ -14,6 +17,7 @@ export const LibraryModal = ({item, toggleModal, modalState}) => {
                 </header>
                 <section className="modal-card-body">
                     <div className="content">
+                        <div className={"mb-5"}><Carousel photos={[item.image, "https://images.metmuseum.org/CRDImages/ad/original/217260.jpg"]}/></div>
                         <b>Title:</b> {item["title"] || "NOT_VA"}
                     </div>
                 </section>
