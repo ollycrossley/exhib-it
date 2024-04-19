@@ -9,19 +9,24 @@ import {LibraryModal} from "@/app/components/LibraryModal";
 
 export default function Library() {
 
+    // Search Parameters
     const [searchTerm, setSearchTerm] = useState("")
     const [currentApi, setCurrentApi] = useState("va")
 
+    // Pagination Support
     const [metPage, setMetPage] = useState(2)
     const [vaPage, setVaPage] = useState(2)
     const [harvPage, setHarvPage] = useState(2)
     const [isMoreContent, setIsMoreContent] = useState(true)
 
+    // Items
     const [items, setItems] = useState([])
 
+    // Loading States
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
 
+    // Modal Related Handling
     const [modalData, setModalData] = useState({})
     const [modalState, setModalState] = useState(false)
 
@@ -74,14 +79,14 @@ export default function Library() {
     }
 
     const displayItems = () => {
-        if (items !== undefined && items.length > 0) {
+        if (items !== undefined && items.length > 0) { // If items exist
             return (
                 <div className={"lib-grid"}>
                     {items.map(item => <LibraryElement element={item} setModalData={setModalData} toggleModal={toggleModal}/>)}
                 </div>
             )
         }
-        if (searchTerm === "") {
+        if (searchTerm === "") { // Display placeholder
             return (
                 <div className={"hero has-text-centered"}>
                 <p className={"hero-body subtitle is-4"}>Search for an item!</p>
@@ -137,7 +142,6 @@ export default function Library() {
             <h1 className={"title has-text-centered"}>Library</h1>
             <br/><br/><br/>
 
-            
             <div className={"container"}>
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                   setSearchTerm={setSearchTerm} getItems={getItems}/>
