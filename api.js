@@ -13,9 +13,9 @@ export const getObjectByIdVA = async (id) => {
     }
 }
 
-export const getObjectsBySearchVA = async (q) => {
+export const getObjectsBySearchVA = async (q, page = 1, size = 100) => {
     try {
-        const response = await axios.get(`${baseUrl}/search?q=${q}&page_size=100&images_exist=1&page_offset=1`)
+        const response = await axios.get(`${baseUrl}/search?q=${q}&page_size=${size}&images_exist=1&page=${page}`)
         const vaObjects = response.data.records
         let vaImageObjs = vaObjects.filter(obj => obj["_images"]["_iiif_image_base_url"] !== undefined)
         vaImageObjs = vaImageObjs.map(obj => {
@@ -51,9 +51,9 @@ export const getObjectByIdHARV = async (id) => {
     }
 }
 
-export const getObjectBySearchHARV = async (q) => {
+export const getObjectBySearchHARV = async (q, page = 1, size = 100) => {
     try {
-        const response = await axios.get("https://api.harvardartmuseums.org/object?size=100&page=1", {
+        const response = await axios.get(`https://api.harvardartmuseums.org/object?size=${size}&page=${page}`, {
             params: {
                 apikey: process.env.NEXT_PUBLIC_HARVARD_API_KEY,
                 keyword: q,
@@ -61,7 +61,7 @@ export const getObjectBySearchHARV = async (q) => {
                 hasimage: 1
             }
         })
-        const harvResponse  = response.data
+        const harvResponse = response.data
         harvResponse.records = harvResponse.records.filter(item => item["primaryimageurl"] !== null && item["images"].length !== 0)
         harvResponse.records = harvResponse.records.map(obj => {
             return {
@@ -89,10 +89,11 @@ export const getObjectBySearchHARV = async (q) => {
 // MET: https://metmuseum.github.io/#search
 const baseUrlMet = "https://collectionapi.metmuseum.org/public/collection/v1/"
 
+
 export const getObjectIdsBySearchMET = async (q) => {
     try {
         const response = await axios.get(`${baseUrlMet}/search?isOnView=true&hasImages=true&q=${q}`)
-        return (response.data.objectIDs).sort((a,b) => a - b)
+        return (response.data.objectIDs).sort((a, b) => a - b)
     } catch (error) {
         console.log(error);
     }
@@ -110,11 +111,11 @@ export const getObjectByIdMET = async (id) => {
 export const getObjectsBySearchMET = async (q, page = 1, size = 100) => {
     try {
         const response = await axios.get(`${baseUrlMet}/search?isOnView=true&hasImages=true&q=${q}`)
-        const start = (page*size)-size
+        const start = (page * size) - size
 
-        const sortedResponse = (response.data.objectIDs).sort((a,b) => a - b)
+        const sortedResponse = (response.data.objectIDs).sort((a, b) => a - b)
 
-        const pagedObjectIds = sortedResponse.slice(start, start+(size-1))
+        const pagedObjectIds = sortedResponse.slice(start, start + (size - 1))
 
         // console.log(pagedObjectIds)
 
@@ -138,7 +139,6 @@ export const getObjectsBySearchMET = async (q, page = 1, size = 100) => {
         console.log(error);
     }
 }
-
 
 
 // GENERIC FUNCTIONS

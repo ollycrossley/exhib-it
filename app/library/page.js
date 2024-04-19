@@ -13,6 +13,10 @@ export default function Library() {
     const [currentApi, setCurrentApi] = useState("va")
 
     const [metPage, setMetPage] = useState(2)
+    const [vaPage, setVaPage] = useState(2)
+    const [harvPage, setHarvPage] = useState(2)
+    const [isMoreContent, setIsMoreContent] = useState(true)
+
     const [items, setItems] = useState([])
 
     const [isLoading, setIsLoading] = useState(false)
@@ -26,6 +30,7 @@ export default function Library() {
     }
 
     const getItems = async () => {
+        setIsMoreContent(true)
         setIsLoading(true)
         if (searchTerm === "") {
             setItems([])
@@ -42,14 +47,30 @@ export default function Library() {
     }
 
     const handlePageChange = async () => {
-        setIsLoadingMore(true)
-        if (currentApi === "met") {
-            setMetPage((prev) => prev + 1)
-            const moreObjects = await getObjectsBySearchMET(searchTerm, metPage)
-            setItems(prev => [...prev, ...moreObjects])
-        }
-        setIsLoadingMore(false)
+        if (isMoreContent) {
+            setIsLoadingMore(true)
+            let moreObjects = []
+            switch (currentApi) {
+                case "va":
+                    setVaPage((prev) => prev + 1)
+                    moreObjects = await getObjectsBySearchVA(searchTerm, vaPage)
+                    setItems(prev => [...prev, ...moreObjects])
+                    break;
+                case "met":
+                    setMetPage((prev) => prev + 1)
+                    moreObjects = await getObjectsBySearchMET(searchTerm, metPage)
+                    setItems(prev => [...prev, ...moreObjects])
+                    break;
+                case "harv":
+                    setHarvPage((prev) => prev + 1)
+                    moreObjects = await getObjectBySearchHARV(searchTerm, harvPage)
+                    setItems(prev => [...prev, ...moreObjects])
+                    break;
 
+            }
+            if (moreObjects.length === 0) setIsMoreContent(false)
+            setIsLoadingMore(false)
+        }
     }
 
     const displayItems = () => {
@@ -121,7 +142,7 @@ export default function Library() {
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                   setSearchTerm={setSearchTerm} getItems={getItems}/>
                 {displayItems()}
-                {items !== undefined && items.length > 0 && currentApi === "met" ? <div className={"block has-text-centered"}><button id={"met-load-more-button"} className={`button is-info mt-5 mb-5 ${isLoadingMore ? "is-loading" : null}`} onClick={handlePageChange}>Load More....</button>
+                {items !== undefined && items.length > 0 ? <div className={`block has-text-centered mt-5 mb-5 `}><button id={"met-load-more-button"} className={`button is-info ${isLoadingMore ? "is-loading" : null} ${!isMoreContent ? `is-hidden` : null}`} onClick={handlePageChange}>Load More....</button>
                 </div> : undefined}
             </div>
         </main>
