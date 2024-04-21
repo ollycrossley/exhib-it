@@ -118,9 +118,6 @@ export default function Library() {
                 <br/>
                 <h1 className={"title has-text-centered"}>Library</h1>
                 <br/><br/><br/>
-
-
-
                 <div className={"container"}>
                     <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
                                       setSearchTerm={setSearchTerm} getItems={getItems}/>
@@ -130,7 +127,6 @@ export default function Library() {
                             <SvgComponent />
                         </div>
                     </div>
-
                 </div>
             </main>
         )
@@ -141,12 +137,10 @@ export default function Library() {
             <br/>
             <h1 className={"title has-text-centered"}>Library</h1>
             <br/><br/><br/>
-
             <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData}/>
-
             <div className={"container"}>
-                <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
-                                  setSearchTerm={setSearchTerm} getItems={getItems}/>
+                <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi} setSearchTerm={setSearchTerm} getItems={getItems}/>
+                <br/>
                 {displayItems()}
                 {items !== undefined && items.length > 0 ? <div className={`block has-text-centered mt-5 mb-5 `}><button id={"met-load-more-button"} className={`button is-info ${isLoadingMore ? "is-loading" : null} ${!isMoreContent ? `is-hidden` : null}`} onClick={handlePageChange}>Load More....</button>
                 </div> : undefined}

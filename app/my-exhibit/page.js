@@ -14,7 +14,6 @@ export default function MyExhibit() {
     const [modalState, setModalState] = useState(false)
 
     const toggleModal = () => {
-        console.log(modalData)
         setModalState(!modalState)
     }
 
