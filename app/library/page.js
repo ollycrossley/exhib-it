@@ -2,7 +2,7 @@
 import NavBar from "@/app/components/NavBar";
 import LibraryElement from "@/app/components/LibraryElement";
 import {useEffect, useState} from "react";
-import {getObjectBySearchHARV, getObjectsBySearchMET, getObjectsBySearchVA} from "@/api";
+import {getObjectsBySearchHARV, getObjectsBySearchMET, getObjectsBySearchVA} from "@/api";
 import SearchOptionsBar from "@/app/components/SearchOptionsBar";
 import SvgComponent from "@/app/components/MuseumLoadingSymbol";
 import {LibraryModal} from "@/app/components/LibraryModal";
@@ -43,7 +43,7 @@ export default function Library() {
             if (currentApi === "va") {
                 setItems(await getObjectsBySearchVA(searchTerm))
             } else if (currentApi === "harv") {
-                setItems(await getObjectBySearchHARV(searchTerm))
+                setItems(await getObjectsBySearchHARV(searchTerm))
             } else if (currentApi === "met") {
                 setItems(await getObjectsBySearchMET(searchTerm))
             }
@@ -68,7 +68,7 @@ export default function Library() {
                     break;
                 case "harv":
                     setHarvPage((prev) => prev + 1)
-                    moreObjects = await getObjectBySearchHARV(searchTerm, harvPage)
+                    moreObjects = await getObjectsBySearchHARV(searchTerm, harvPage)
                     setItems(prev => [...prev, ...moreObjects])
                     break;
 
@@ -119,7 +119,7 @@ export default function Library() {
                 <h1 className={"title has-text-centered"}>Library</h1>
                 <br/><br/><br/>
 
-                <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData}/>
+
 
                 <div className={"container"}>
                     <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}
@@ -141,6 +141,8 @@ export default function Library() {
             <br/>
             <h1 className={"title has-text-centered"}>Library</h1>
             <br/><br/><br/>
+
+            <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData}/>
 
             <div className={"container"}>
                 <SearchOptionsBar currentApi={currentApi} searchTerm={searchTerm} setCurrentApi={setCurrentApi}

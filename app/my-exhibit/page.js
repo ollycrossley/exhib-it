@@ -22,7 +22,7 @@ export default function MyExhibit() {
         <>
             <NavBar/>
             <br/>
-            <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData} />
+            <LibraryModal toggleModal={toggleModal} modalState={modalState} item={modalData} isMyExhibit={true} />
             <h1 className={"title has-text-centered"}>My Exhibit</h1>
             <div className={"container"}>
                     <div className={"lib-grid pt-6 is-mobile"}>
