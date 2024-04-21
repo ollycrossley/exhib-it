@@ -38,7 +38,7 @@ export default function SearchOptionsBar({searchTerm, setSearchTerm, currentApi,
 
     return (
 
-        <div>
+        <div className={"mb-5"}>
             <div className={"columns is-hidden-tablet-only is-hidden-mobile"}>
 
                 <div className={"column is-narrow"}>
@@ -57,8 +57,7 @@ export default function SearchOptionsBar({searchTerm, setSearchTerm, currentApi,
                 </div>
 
                 <div className={"column is-narrow"}>
-
-                    <div className={`dropdown ${isApiDrActive ? "is-active" : ""}`} ref={ref}>
+                        <div className={`dropdown ${isApiDrActive ? "is-active" : ""}`} ref={ref}>
                         <div className="dropdown-trigger">
                             <button className="button" aria-haspopup="true" aria-controls="dropdown-menu3"
                                     onClick={() => setIsApiDrActive(!isApiDrActive)}>
@@ -133,14 +132,15 @@ export default function SearchOptionsBar({searchTerm, setSearchTerm, currentApi,
                 </div>
             </div>
 
-            <div className={"columns is-hidden-desktop is-hidden-tablet is-centered mb-4"}>
+            <div className={"columns is-hidden-desktop is-hidden-tablet mx-auto"} style={{width: "90%"}}>
 
                 <div className={"column"}>
                     <div className="field has-addons is-justify-content-center" id={"search-bar"}>
                         <div className="control">
                             <input className="input" type="text" placeholder="Search for item"
                                    onChange={e => setSearchTerm(e.target.value)}
-                                   onKeyDown={e => handleSearchKeyPress(e)}/>
+                                   onKeyDown={e => handleSearchKeyPress(e)}
+                                   value={searchTerm}/>
                         </div>
                         <div className="control">
                             <button className="button is-info" onClick={getItems}>
