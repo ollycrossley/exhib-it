@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -17,7 +17,8 @@ export const Carousel = ({photos}) => {
                     return (
                         <SwiperSlide>
                             <div className={"image is-4by3"}>
-                                <img src={photo} alt="" style={{ objectFit: 'contain' }} />
+                                <a href={photo} target={"_blank"} rel="noopener noreferrer"><img src={photo} alt=""
+                                                                                                 style={{objectFit: 'contain'}}/></a>
                             </div>
                         </SwiperSlide>
                     )
