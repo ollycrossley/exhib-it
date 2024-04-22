@@ -34,10 +34,14 @@ Please run `npm install` to install all available packages.
 
 Create a file named `.env` in the root directory.
 
-This website runs on a single `.env` file in the root directory and should contain the following line:
+This website runs on a single `.env` file in the root directory and should contain the following lines:
 ```dotenv
 NEXT_PUBLIC_HARVARD_API_KEY=your-key-here
+NEXT_PUBLIC_FONTSAWESOME_KIT=https://kit.fontawesome.com/your-kit-code.js
 ```
+
+For FontsAwesome, please visit [their website](https://fontawesome.com/kits) to get yourself a kit code and select the
+"get started" in your kit to find the link inside the `src` tag of the easy installation script tag.
 
 Please contact the [Harvard API Team](https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform) to get your
 api key for the harvard functionality to work.
