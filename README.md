@@ -2,7 +2,7 @@
 
 # Exhib-it!
 
-![Logo](https://i.ibb.co/ysvpvwY/EXHIB-IT.png)
+![Logo](other/EXHIB-IT!.png)
 
 ## Project Description
 
