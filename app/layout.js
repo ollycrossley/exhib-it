@@ -14,7 +14,7 @@ export default function RootLayout({children}) {
         <html lang="en" data-theme={"light"}>
             <head>
                 <link rel={"icon"} href={"./favicon"} sizes="any"/>
-                <script src="https://kit.fontawesome.com/a1a2d1f110.js" crossOrigin="anonymous" async/>
+                <script src={process.env.NEXT_PUBLIC_FONTSAWESOME_KIT} crossOrigin="anonymous" async/>
             </head>
             <Providers>
                 <body className={`${inter.className} has-navbar-fixed-top-touch`}>{children}</body>
