@@ -16,7 +16,6 @@ export const getObjectByIdVA = async (id) => {
         const categories = data.categories.map(c => { return c.text})
         const names = data.artistMakerPerson.map(n => { return n.name.text})
         names.push(...data.artistMakerOrganisations.map(n => { return n.name.text}))
-        console.log(names)
         let namesString = ""
         if (names.length > 0) {
             names.forEach((n, i) => {
