@@ -16,15 +16,23 @@ https://exhib-it.vercel.app/
 
 ## Running locally
 
+### Clone repo 
+
+Simply click the green "Code" button above and either clone using Git or download as a ZIP!
+
 ### Installing Packages 
 
-Please run `npm install` to install all available packages. 
+Please ensure you have the following prerequisites downloaded:
+- NPM
+- Node.js
 
-This project uses several node packages for its styling sources and other functionality,
-and are essential to the package.
+Open a command prompt inside the main `exhib-it` folder.
 
+Please run `npm install` to install all available packages.
 
 ### Setting up `.env` files 
+
+Create a file named `.env` in the root directory.
 
 This website runs on a single `.env` file in the root directory and should contain the following line:
 ```dotenv
